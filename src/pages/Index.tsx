@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 interface FormData {
   name: string;
   email: string;
-  message: string;
+  message: string
 }
 
 interface FormErrors {

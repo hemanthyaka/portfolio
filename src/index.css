@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -97,7 +99,6 @@
       #1a0000 0%,
       #2b0404 25%
     );
-    @apply text-foreground font-sans;
     min-height: 100vh;
   }
 }

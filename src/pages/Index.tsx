@@ -256,6 +256,8 @@ const Portfolio = () => {
     });
   }, [visibleElements.has('contact')]);
 
+ 
+
   return (
     <div className="min-h-screen text-white relative overflow-hidden">
       {/* Interactive background elements */}

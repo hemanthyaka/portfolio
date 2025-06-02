@@ -578,9 +578,9 @@ const Portfolio = () => {
                 {/* Quick Stats with 3D Effect */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                   {[
-                    { value: "2+", label: "Years Experience", icon: "⏳" },
-                    { value: "50+", label: "Projects", icon: "📦" },
-                    { value: "100%", label: "Satisfaction", icon: "⭐" }
+                    { value: "1+", label: "Years Experience", icon: "⏳" },
+                    { value: "10+", label: "Projects", icon: "📦" },
+                    { value: "98%", label: "Satisfaction", icon: "⭐" }
                   ].map((stat, index) => (
                     <div 
                       key={stat.label}
@@ -978,7 +978,7 @@ const Portfolio = () => {
             {/* Stats Counter Section */}
             <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 ${visibleElements.has('contact') ? 'animate-fade-in' : 'opacity-0'}`}>
               {[
-                { value: 15, label: "Projects Completed", icon: "🚀", suffix: "+" },
+                { value: 10, label: "Projects Completed", icon: "🚀", suffix: "+" },
                 { value: 98, label: "Client Satisfaction", icon: "⭐", suffix: "%" },
                 { value: 1, label: "Years Experience", icon: "⏳", suffix: "+" },
                 { value: 24, label: "Hours Response", icon: "⚡", suffix: "h" }

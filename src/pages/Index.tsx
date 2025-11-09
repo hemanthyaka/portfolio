@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, ArrowDown, Github, Linkedin, Twitter, Menu, X, Folder, Code, Terminal, Cpu } from "lucide-react";
+import { 
+  Github, Linkedin, Twitter, Menu, X, Folder, Code, Terminal, Cpu,
+  Sparkles, Zap, Rocket, Lightbulb, Mail, User, Briefcase, 
+  Palette, Gauge, Brain, Clock, Package, Star, TrendingUp,
+  ArrowRight, ExternalLink, Heart, Coffee
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-
-interface FormData {
-  name: string;
-  email: string;
-  message: string
-}
-
-interface FormErrors {
-  name?: string;
-  email?: string;
-  message?: string;
-}
 
 interface Repository {
   name: string;
@@ -30,10 +20,6 @@ const Portfolio = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [projects, setProjects] = useState<Repository[]>([]);
-  const [form, setForm] = useState<FormData>({ name: '', email: '', message: '' });
-  const [formErrors, setFormErrors] = useState<FormErrors>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState('');
   const [visibleElements, setVisibleElements] = useState(new Set());
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [typedText, setTypedText] = useState('');
@@ -187,40 +173,6 @@ const Portfolio = () => {
     return () => clearTimeout(timeout);
   }, [typedText, isTyping, currentWordIndex]);
 
-  // Form validation
-  const validateForm = (): FormErrors => {
-    const errors: FormErrors = {};
-    if (!form.name.trim()) errors.name = "Name is required";
-    if (!form.email.trim()) errors.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errors.email = "Valid email is required";
-    if (!form.message.trim()) errors.message = "Message is required";
-    return errors;
-  };
-
-  // Form submission
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const errors = validateForm();
-    
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      return;
-    }
-
-    setIsSubmitting(true);
-    setFormErrors({});
-
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setSubmitStatus('success');
-      setForm({ name: '', email: '', message: '' });
-    } catch (error) {
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   // Smooth scroll function
   const scrollToSection = (sectionId: string) => {
@@ -234,10 +186,10 @@ const Portfolio = () => {
     setIsMenuOpen(false);
   };
 
-  // Add this useEffect for counter animation
+  // Counter animation for stats
   useEffect(() => {
     const counters = document.querySelectorAll('.counter');
-    const speed = 200; // The lower the faster
+    const speed = 200;
 
     counters.forEach(counter => {
       const target = parseInt(counter.getAttribute('data-target') || '0');
@@ -254,7 +206,7 @@ const Portfolio = () => {
       };
       updateCount();
     });
-  }, [visibleElements.has('contact')]);
+  }, [visibleElements.has('stats')]);
 
  
 
@@ -295,36 +247,37 @@ const Portfolio = () => {
         }
       `}</style>
 
-      <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-gray-900/20 shadow-lg smooth-transition border-b border-red-500/10">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 sm:px-10 md:px-20 py-4">
+      <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-gray-900/30 shadow-lg smooth-transition border-b border-red-500/20">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-4 sm:px-6 md:px-10 lg:px-20 py-4">
           {/* Logo with Animation */}
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-            <div className="relative text-xl font-bold text-white hover-scale cursor-pointer transform transition-all duration-300 hover:text-red-400 flex items-center gap-2">
-              <span className="text-2xl">👨‍💻</span>
+            <button
+              onClick={() => scrollToSection('hero')}
+              className="relative text-xl sm:text-2xl font-bold text-white hover-scale cursor-pointer transform transition-all duration-300 hover:text-red-400 flex items-center gap-2"
+            >
+              <Code className="w-6 h-6 sm:w-7 sm:h-7 text-red-400 transform group-hover:rotate-12 transition-transform duration-300" />
               <span className="relative">
                 Yaka Hemanth
                 <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-red-500 to-red-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </span>
-            </div>
+            </button>
           </div>
           
-          {/* Desktop Menu (only above 980px) */}
-          <ul className="navbar-desktop-menu space-x-8">
+          {/* Desktop Menu (only above 992px) */}
+          <ul className="navbar-desktop-menu space-x-6 lg:space-x-8">
             {[
-              { label: 'Home', id: 'hero', icon: '🏠' },
-              { label: 'About', id: 'about', icon: '👨‍💻' },
-              { label: 'Tech', id: 'tech-stack', icon: '⚡' },
-              { label: 'Projects', id: 'projects', icon: '🚀' },
-              { label: 'Philosophy', id: 'philosophy', icon: '💡' },
-              { label: 'Contact', id: 'contact', icon: '📧' }
+              { label: 'Home', id: 'hero' },
+              { label: 'About', id: 'about' },
+              { label: 'Tech', id: 'tech-stack' },
+              { label: 'Projects', id: 'projects' },
+              { label: 'Philosophy', id: 'philosophy' }
             ].map((item) => (
               <li key={item.id} className="relative group">
                 <button
                   onClick={() => scrollToSection(item.id)}
-                  className="smooth-transition hover:text-red-500 text-gray-200 hover:scale-110 transform relative flex items-center gap-2 py-2"
+                  className="smooth-transition hover:text-red-500 text-gray-200 hover:scale-110 transform relative py-2 text-sm sm:text-base font-medium"
                 >
-                  <span className="text-lg transform group-hover:rotate-12 transition-transform duration-300">{item.icon}</span>
                   <span>{item.label}</span>
                   <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-red-500 to-red-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                 </button>
@@ -334,21 +287,21 @@ const Portfolio = () => {
             ))}
           </ul>
 
-          {/* Mobile Menu Button (only 980px and below) */}
-          <div className="navbar-mobile-menu-btn hidden items-center space-x-4">
+          {/* Mobile Menu Button (only 992px and below) */}
+          <div className="navbar-mobile-menu-btn hidden items-center">
             <Button
               variant="ghost"
               size="sm"
               className="p-2 text-white hover:text-red-500 hover-scale transform transition-all duration-300 relative group"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label="Open menu"
+              aria-label="Toggle menu"
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
               <div className="relative">
                 {isMenuOpen ? (
-                  <X className="w-5 h-5 transform rotate-180 transition-transform duration-300" />
+                  <X className="w-6 h-6 transform rotate-180 transition-transform duration-300" />
                 ) : (
-                  <Menu className="w-5 h-5 transform transition-transform duration-300" />
+                  <Menu className="w-6 h-6 transform transition-transform duration-300" />
                 )}
               </div>
             </Button>
@@ -357,28 +310,24 @@ const Portfolio = () => {
 
         {/* Enhanced Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden backdrop-blur-md bg-gray-900/40 smooth-transition animate-slide-up border-t border-red-500/10">
-            <ul className="flex flex-col space-y-2 p-4">
+          <div className="md:hidden backdrop-blur-md bg-gray-900/50 smooth-transition animate-slide-up border-t border-red-500/20">
+            <ul className="flex flex-col space-y-1 p-4">
               {[
-                { label: 'Home', id: 'hero', icon: '🏠' },
-                { label: 'About', id: 'about', icon: '👨‍💻' },
-                { label: 'Tech', id: 'tech-stack', icon: '⚡' },
-                { label: 'Projects', id: 'projects', icon: '🚀' },
-                { label: 'Philosophy', id: 'philosophy', icon: '💡' },
-                { label: 'Contact', id: 'contact', icon: '📧' }
+                { label: 'Home', id: 'hero' },
+                { label: 'About', id: 'about' },
+                { label: 'Tech', id: 'tech-stack' },
+                { label: 'Projects', id: 'projects' },
+                { label: 'Philosophy', id: 'philosophy' }
               ].map((item, index) => (
                 <li key={item.id}>
                   <button
                     onClick={() => scrollToSection(item.id)}
-                    className="w-full text-left py-3 px-4 smooth-transition hover:text-red-500 text-gray-200 hover:translate-x-2 animate-fade-in relative group"
+                    className="w-full text-left py-3 px-4 smooth-transition hover:text-red-500 text-gray-200 hover:translate-x-2 animate-fade-in relative group rounded-lg"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="absolute -inset-2 bg-red-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl transform group-hover:rotate-12 transition-transform duration-300">{item.icon}</span>
-                      <span>{item.label}</span>
-                    </div>
-                    <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-red-500 to-red-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                    <span className="font-medium">{item.label}</span>
+                    <div className="absolute -bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-red-500 to-red-800 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                   </button>
                 </li>
               ))}
@@ -416,15 +365,17 @@ const Portfolio = () => {
                 <div className={`flex flex-col sm:flex-row gap-4 transform ${visibleElements.has('hero') ? 'animate-fade-in' : 'opacity-0 translate-y-4'}`} style={{ animationDelay: '0.6s' }}>
                   <Button
                     onClick={() => scrollToSection('projects')}
-                    className="w-full sm:w-auto px-8 py-3 bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white smooth-transition hover-scale backdrop-blur-sm pulse-glow"
+                    className="w-full sm:w-auto px-8 py-3 bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white smooth-transition hover-scale backdrop-blur-sm pulse-glow group"
                   >
                     View Projects
+                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300 inline" />
                   </Button>
                   <Button
-                    onClick={() => scrollToSection('contact')}
-                    className="w-full sm:w-auto px-8 py-3 bg-transparent border border-gray-600 text-gray-200 hover:border-red-500 hover:text-red-400 smooth-transition hover-scale"
+                    onClick={() => scrollToSection('about')}
+                    className="w-full sm:w-auto px-8 py-3 bg-transparent border border-gray-600 text-gray-200 hover:border-red-500 hover:text-red-400 smooth-transition hover-scale group"
                   >
-                    Contact Me
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform duration-300 inline" />
                   </Button>
                 </div>
               </div>
@@ -498,8 +449,9 @@ const Portfolio = () => {
                   <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-red-800 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
                   <div className="relative p-8 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg]">
                     <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-red-400 transition-colors flex items-center">
-                      <span className="mr-2 text-2xl">👋</span> About Me
+                    <h3 className="text-2xl font-semibold text-white mb-4 group-hover:text-red-400 transition-colors flex items-center gap-2">
+                      <User className="w-6 h-6 text-red-400 transform group-hover:rotate-12 transition-transform duration-300" />
+                      About Me
                     </h3>
                     <p className="text-base leading-relaxed text-gray-200 group-hover:text-gray-100 transition-colors">
                       {bioText}
@@ -510,28 +462,33 @@ const Portfolio = () => {
                 {/* Skills Highlights with 3D Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   {[
-                    { icon: "💻", label: "Frontend Development", value: "Expert", color: "from-blue-500/20 to-blue-800/20" },
-                    { icon: "🎨", label: "UI/UX Design", value: "Advanced", color: "from-purple-500/20 to-purple-800/20" },
-                    { icon: "⚡", label: "Performance", value: "Optimized", color: "from-green-500/20 to-green-800/20" },
-                    { icon: "🚀", label: "Problem Solving", value: "Creative", color: "from-yellow-500/20 to-yellow-800/20" }
-                  ].map((skill, index) => (
-                    <div 
-                      key={skill.label}
-                      className="relative group perspective-1000"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className={`absolute -inset-1 bg-gradient-to-r ${skill.color} rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
-                      <div className="relative p-6 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg]">
-                        <div className="flex items-center space-x-4">
-                          <span className="text-3xl transform group-hover:scale-110 transition-transform duration-300">{skill.icon}</span>
-                          <div>
-                            <p className="text-sm text-gray-400 group-hover:text-red-300 transition-colors">{skill.label}</p>
-                            <p className="text-lg font-semibold text-white group-hover:text-red-400 transition-colors">{skill.value}</p>
+                    { icon: Code, label: "Frontend Development", value: "Expert", color: "from-blue-500/20 to-blue-800/20" },
+                    { icon: Palette, label: "UI/UX Design", value: "Advanced", color: "from-purple-500/20 to-purple-800/20" },
+                    { icon: Gauge, label: "Performance", value: "Optimized", color: "from-green-500/20 to-green-800/20" },
+                    { icon: Brain, label: "Problem Solving", value: "Creative", color: "from-yellow-500/20 to-yellow-800/20" }
+                  ].map((skill, index) => {
+                    const IconComponent = skill.icon;
+                    return (
+                      <div 
+                        key={skill.label}
+                        className="relative group perspective-1000"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        <div className={`absolute -inset-1 bg-gradient-to-r ${skill.color} rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
+                        <div className="relative p-6 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg]">
+                          <div className="flex items-center space-x-4">
+                            <div className="p-2 bg-red-500/10 rounded-lg transform group-hover:scale-110 transition-transform duration-300">
+                              <IconComponent className="w-6 h-6 text-red-400" />
+                            </div>
+                            <div>
+                              <p className="text-sm text-gray-400 group-hover:text-red-300 transition-colors">{skill.label}</p>
+                              <p className="text-lg font-semibold text-white group-hover:text-red-400 transition-colors">{skill.value}</p>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -540,8 +497,9 @@ const Portfolio = () => {
                 <div className="relative group perspective-1000">
                   <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-red-800 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200" />
                   <div className="relative p-8 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg]">
-                    <h3 className="text-2xl font-semibold text-white mb-8 group-hover:text-red-400 transition-colors flex items-center">
-                      <span className="mr-2 text-2xl">💼</span> Professional Experience
+                    <h3 className="text-2xl font-semibold text-white mb-8 group-hover:text-red-400 transition-colors flex items-center gap-2">
+                      <Briefcase className="w-6 h-6 text-red-400 transform group-hover:rotate-12 transition-transform duration-300" />
+                      Professional Experience
                     </h3>
                     
                     {experienceData.map((exp, index) => (
@@ -578,23 +536,30 @@ const Portfolio = () => {
                 {/* Quick Stats with 3D Effect */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                   {[
-                    { value: "1+", label: "Years Experience", icon: "⏳" },
-                    { value: "10+", label: "Projects", icon: "📦" },
-                    { value: "98%", label: "Satisfaction", icon: "⭐" }
-                  ].map((stat, index) => (
-                    <div 
-                      key={stat.label}
-                      className="relative group perspective-1000"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-                      <div className="relative p-6 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg] text-center">
-                        <span className="text-3xl mb-2 block transform group-hover:scale-110 transition-transform duration-300">{stat.icon}</span>
-                        <p className="text-2xl font-bold text-white group-hover:text-red-400 transition-colors">{stat.value}</p>
-                        <p className="text-sm text-gray-400 group-hover:text-red-300 transition-colors">{stat.label}</p>
+                    { value: "1+", label: "Years Experience", icon: Clock },
+                    { value: "10+", label: "Projects", icon: Package },
+                    { value: "98%", label: "Satisfaction", icon: Star }
+                  ].map((stat, index) => {
+                    const IconComponent = stat.icon;
+                    return (
+                      <div 
+                        key={stat.label}
+                        className="relative group perspective-1000"
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+                        <div className="relative p-6 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg] text-center">
+                          <div className="flex justify-center mb-2 transform group-hover:scale-110 transition-transform duration-300">
+                            <div className="p-2 bg-red-500/10 rounded-lg">
+                              <IconComponent className="w-6 h-6 text-red-400" />
+                            </div>
+                          </div>
+                          <p className="text-2xl font-bold text-white group-hover:text-red-400 transition-colors">{stat.value}</p>
+                          <p className="text-sm text-gray-400 group-hover:text-red-300 transition-colors">{stat.label}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -808,7 +773,7 @@ const Portfolio = () => {
                           aria-label={`View ${project.name} on GitHub`}
                         >
                           View on GitHub
-                          <span className="transform group-hover/link:translate-x-1 transition-transform duration-300">→</span>
+                          <ExternalLink className="w-4 h-4 transform group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform duration-300" />
                         </a>
                       </div>
                     </div>
@@ -826,7 +791,7 @@ const Portfolio = () => {
                 className="inline-flex items-center gap-2 px-8 py-3 bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500 hover:text-white transition-all duration-500 rounded-lg backdrop-blur-sm hover:scale-105 transform group"
               >
                 View More Projects
-                <span className="transform group-hover:translate-x-1 transition-transform duration-300">→</span>
+                <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" />
               </a>
             </div>
           </div>
@@ -906,39 +871,44 @@ const Portfolio = () => {
                     <div className="space-y-6">
                       {[
                         {
-                          icon: "🎨",
+                          icon: Palette,
                           title: "Minimalist Aesthetics",
                           description: "Embracing white space and clean design principles to create intuitive and elegant interfaces."
                         },
                         {
-                          icon: "⚡",
+                          icon: Zap,
                           title: "Performance First",
                           description: "Optimizing every aspect for speed and efficiency, ensuring seamless user experiences."
                         },
                         {
-                          icon: "💡",
+                          icon: Lightbulb,
                           title: "Creative Innovation",
                           description: "Pushing boundaries while maintaining usability, finding the perfect balance between form and function."
                         }
-                      ].map((point, index) => (
-                        <div 
-                          key={point.title}
-                          className="relative group/point"
-                          style={{ animationDelay: `${index * 0.2}s` }}
-                        >
-                          <div className="flex items-start space-x-4">
-                            <span className="text-3xl transform group-hover/point:scale-110 transition-transform duration-300">{point.icon}</span>
-                            <div>
-                              <h3 className="text-xl font-semibold text-white group-hover/point:text-red-400 transition-colors duration-300">
-                                {point.title}
-                              </h3>
-                              <p className="mt-2 text-gray-200 group-hover/point:text-gray-100 transition-colors duration-300">
-                                {point.description}
-                              </p>
+                      ].map((point, index) => {
+                        const IconComponent = point.icon;
+                        return (
+                          <div 
+                            key={point.title}
+                            className="relative group/point"
+                            style={{ animationDelay: `${index * 0.2}s` }}
+                          >
+                            <div className="flex items-start space-x-4">
+                              <div className="p-3 bg-red-500/10 rounded-lg transform group-hover/point:scale-110 group-hover/point:rotate-12 transition-all duration-300">
+                                <IconComponent className="w-6 h-6 text-red-400" />
+                              </div>
+                              <div>
+                                <h3 className="text-xl font-semibold text-white group-hover/point:text-red-400 transition-colors duration-300">
+                                  {point.title}
+                                </h3>
+                                <p className="mt-2 text-gray-200 group-hover/point:text-gray-100 transition-colors duration-300">
+                                  {point.description}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
@@ -947,8 +917,8 @@ const Portfolio = () => {
           </div>
         </section>
 
-        {/* Contact Section */}
-        <section id="contact" className="px-4 sm:px-6 md:px-8 lg:px-20 py-16 sm:py-20 relative overflow-hidden">
+        {/* Stats Section */}
+        <section id="stats" className="px-4 sm:px-6 md:px-8 lg:px-20 py-16 sm:py-20 relative overflow-hidden">
           {/* Creative Background Elements */}
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 left-1/2 w-[800px] h-[800px] bg-gradient-to-b from-red-500/10 via-transparent to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2 animate-pulse-slow" />
@@ -966,165 +936,48 @@ const Portfolio = () => {
 
           <div className="max-w-7xl mx-auto relative">
             <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 smooth-transition transform ${visibleElements.has('contact') ? 'animate-fade-in' : 'opacity-0 translate-y-4'}`}>
-                Get in Touch
+              <h2 className={`text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 smooth-transition transform ${visibleElements.has('stats') ? 'animate-fade-in' : 'opacity-0 translate-y-4'}`}>
+                Achievements & Stats
               </h2>
               <div className="relative w-32 h-1 mx-auto">
-                <div className={`absolute inset-0 bg-gradient-to-r from-red-500 via-red-600 to-red-800 rounded-full smooth-transition transform ${visibleElements.has('contact') ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`} />
-                <div className={`absolute inset-0 bg-gradient-to-r from-red-500 via-red-600 to-red-800 rounded-full blur-sm smooth-transition transform ${visibleElements.has('contact') ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`} style={{ animationDelay: '0.2s' }} />
+                <div className={`absolute inset-0 bg-gradient-to-r from-red-500 via-red-600 to-red-800 rounded-full smooth-transition transform ${visibleElements.has('stats') ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`} />
+                <div className={`absolute inset-0 bg-gradient-to-r from-red-500 via-red-600 to-red-800 rounded-full blur-sm smooth-transition transform ${visibleElements.has('stats') ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`} style={{ animationDelay: '0.2s' }} />
               </div>
             </div>
 
             {/* Stats Counter Section */}
-            <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16 ${visibleElements.has('contact') ? 'animate-fade-in' : 'opacity-0'}`}>
+            <div className={`grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 ${visibleElements.has('stats') ? 'animate-fade-in' : 'opacity-0'}`}>
               {[
-                { value: 10, label: "Projects Completed", icon: "🚀", suffix: "+" },
-                { value: 98, label: "Client Satisfaction", icon: "⭐", suffix: "%" },
-                { value: 1, label: "Years Experience", icon: "⏳", suffix: "+" },
-                { value: 24, label: "Hours Response", icon: "⚡", suffix: "h" }
-              ].map((stat, index) => (
-                <div 
-                  key={stat.label}
-                  className="relative group perspective-1000"
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
-                  <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-                  <div className="relative p-6 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg] text-center">
-                    <span className="text-3xl mb-2 block transform group-hover:scale-110 transition-transform duration-300">{stat.icon}</span>
-                    <div className="relative">
-                      <span className="text-3xl font-bold text-white group-hover:text-red-400 transition-colors">
-                        <span className="counter" data-target={stat.value}>0</span>{stat.suffix}
-                      </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    </div>
-                    <p className="text-sm text-gray-400 group-hover:text-red-300 transition-colors mt-2">{stat.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-              {/* Left Side - Contact Form */}
-              <div className={`space-y-6 ${visibleElements.has('contact') ? 'animate-slide-up' : 'opacity-0 translate-y-4'}`}>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="group">
-                    <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-200 group-focus-within:text-red-400 transition-colors">
-                      Name
-                    </label>
-                    <Input
-                      id="name"
-                      type="text"
-                      value={form.name}
-                      onChange={(e) => setForm(prev => ({ ...prev, name: e.target.value }))}
-                      className={`w-full smooth-transition ${formErrors.name ? 'border-red-500' : ''} bg-gray-800/50 border-gray-600 text-white backdrop-blur-sm hover:bg-gray-800/70 focus:bg-gray-800/70 focus:border-red-500/50 hover:scale-105 transform`}
-                      aria-required="true"
-                      aria-describedby={formErrors.name ? "name-error" : undefined}
-                    />
-                    {formErrors.name && (
-                      <p id="name-error" className="text-red-500 text-sm mt-1 animate-fade-in">{formErrors.name}</p>
-                    )}
-                  </div>
-
-                  <div className="group">
-                    <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-200 group-focus-within:text-red-400 transition-colors">
-                      Email
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={form.email}
-                      onChange={(e) => setForm(prev => ({ ...prev, email: e.target.value }))}
-                      className={`w-full smooth-transition ${formErrors.email ? 'border-red-500' : ''} bg-gray-800/50 border-gray-600 text-white backdrop-blur-sm hover:bg-gray-800/70 focus:bg-gray-800/70 focus:border-red-500/50 hover:scale-105 transform`}
-                      aria-required="true"
-                      aria-describedby={formErrors.email ? "email-error" : undefined}
-                    />
-                    {formErrors.email && (
-                      <p id="email-error" className="text-red-500 text-sm mt-1 animate-fade-in">{formErrors.email}</p>
-                    )}
-                  </div>
-
-                  <div className="group">
-                    <label htmlFor="message" className="block text-sm font-medium mb-2 text-gray-200 group-focus-within:text-red-400 transition-colors">
-                      Message
-                    </label>
-                    <Textarea
-                      id="message"
-                      value={form.message}
-                      onChange={(e) => setForm(prev => ({ ...prev, message: e.target.value }))}
-                      rows={5}
-                      className={`w-full smooth-transition ${formErrors.message ? 'border-red-500' : ''} bg-gray-800/50 border-gray-600 text-white backdrop-blur-sm hover:bg-gray-800/70 focus:bg-gray-800/70 focus:border-red-500/50 hover:scale-105 transform`}
-                      aria-required="true"
-                      aria-describedby={formErrors.message ? "message-error" : undefined}
-                    />
-                    {formErrors.message && (
-                      <p id="message-error" className="text-red-500 text-sm mt-1 animate-fade-in">{formErrors.message}</p>
-                    )}
-                  </div>
-
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-3 bg-red-500/80 text-white hover:bg-red-600 smooth-transition disabled:opacity-50 hover-scale transform hover:scale-105 backdrop-blur-sm border border-red-500/50 pulse-glow"
-                    aria-label="Send Message"
+                { value: 10, label: "Projects Completed", icon: Rocket, suffix: "+" },
+                { value: 98, label: "Client Satisfaction", icon: Star, suffix: "%" },
+                { value: 1, label: "Years Experience", icon: Clock, suffix: "+" },
+                { value: 24, label: "Hours Response", icon: Zap, suffix: "h" }
+              ].map((stat, index) => {
+                const IconComponent = stat.icon;
+                return (
+                  <div 
+                    key={stat.label}
+                    className="relative group perspective-1000"
+                    style={{ animationDelay: `${index * 0.2}s` }}
                   >
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </Button>
-
-                  {submitStatus && (
-                    <div className={`text-center animate-fade-in ${submitStatus === 'success' ? 'text-green-400' : 'text-red-400'}`} aria-live="assertive">
-                      {submitStatus === 'success' 
-                        ? 'Thank you! Your message has been sent.' 
-                        : 'Oops! Something went wrong. Please try again.'
-                      }
-                    </div>
-                  )}
-                </form>
-              </div>
-
-              {/* Right Side - Decorative Elements */}
-              <div className={`relative h-[500px] hidden md:block ${visibleElements.has('contact') ? 'animate-fade-in' : 'opacity-0 translate-x-8'}`}>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {/* Animated Envelope */}
-                  <div className="relative w-64 h-64">
-                    <div className="absolute inset-0 bg-red-500/10 rounded-lg transform rotate-12 animate-float-slow">
-                      <div className="absolute inset-4 bg-red-500/5 rounded-lg" />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <svg className="w-32 h-32 text-red-400 animate-pulse-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                        <path d="M22 6l-10 7L2 6" />
-                      </svg>
+                    <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
+                    <div className="relative p-6 bg-gray-800/20 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-red-500/30 transition-all duration-500 group-hover:scale-[1.02] group-hover:rotate-[0.5deg] text-center">
+                      <div className="flex justify-center mb-3 transform group-hover:scale-110 transition-transform duration-300">
+                        <div className="p-3 bg-red-500/10 rounded-lg">
+                          <IconComponent className="w-6 h-6 text-red-400" />
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <span className="text-3xl font-bold text-white group-hover:text-red-400 transition-colors">
+                          <span className="counter" data-target={stat.value}>0</span>{stat.suffix}
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                      </div>
+                      <p className="text-sm text-gray-400 group-hover:text-red-300 transition-colors mt-2">{stat.label}</p>
                     </div>
                   </div>
-
-                  {/* Floating Elements */}
-                  <div className="absolute top-1/4 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="w-24 h-24 bg-red-500/10 rounded-lg rotate-12 animate-float-slow-delayed">
-                      <Github className="w-12 h-12 text-red-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-                  <div className="absolute top-1/2 right-1/4 transform translate-x-1/2 -translate-y-1/2">
-                    <div className="w-32 h-32 bg-red-500/10 rounded-lg -rotate-12 animate-float-slow">
-                      <Linkedin className="w-16 h-16 text-red-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-1/4 left-1/2 transform -translate-x-1/2 translate-y-1/2">
-                    <div className="w-28 h-28 bg-red-500/10 rounded-lg rotate-45 animate-float-slow-delayed-2">
-                      <Twitter className="w-14 h-14 text-red-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-                    </div>
-                  </div>
-
-                  {/* Rotating Rings */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="w-80 h-80 rounded-full border-2 border-red-500/20 animate-spin-slow">
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-red-500/10 to-transparent animate-pulse-slow" />
-                    </div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full border-2 border-red-500/20 animate-spin-slow-reverse">
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent to-red-500/10 animate-pulse-slow" style={{ animationDelay: '0.5s' }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -1154,7 +1007,7 @@ const Portfolio = () => {
                 <div className="relative group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-red-500/20 to-red-800/20 rounded-lg blur opacity-0 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
                   <div className="relative flex items-center space-x-2">
-                    <span className="text-2xl transform group-hover:rotate-12 transition-transform duration-300">👨‍💻</span>
+                    <Code className="w-6 h-6 text-red-400 transform group-hover:rotate-12 transition-transform duration-300" />
                     <h3 className="text-xl font-bold text-white group-hover:text-red-400 transition-colors">Yaka Hemanth</h3>
                   </div>
                 </div>
@@ -1190,17 +1043,17 @@ const Portfolio = () => {
                 <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
                 <ul className="space-y-3">
                   {[
-                    { label: 'Home', id: 'hero', icon: '🏠' },
-                    { label: 'About', id: 'about', icon: '👨‍💻' },
-                    { label: 'Projects', id: 'projects', icon: '🚀' },
-                    { label: 'Contact', id: 'contact', icon: '📧' }
+                    { label: 'Home', id: 'hero' },
+                    { label: 'About', id: 'about' },
+                    { label: 'Projects', id: 'projects' },
+                    { label: 'Stats', id: 'stats' }
                   ].map((link) => (
                     <li key={link.id}>
                       <button
                         onClick={() => scrollToSection(link.id)}
                         className="w-full text-left text-gray-400 hover:text-red-400 transition-colors duration-300 flex items-center group"
                       >
-                        <span className="text-lg mr-2 transform group-hover:rotate-12 transition-transform duration-300">{link.icon}</span>
+                        <ArrowRight className="w-4 h-4 mr-2 transform group-hover:translate-x-1 transition-transform duration-300 opacity-0 group-hover:opacity-100" />
                         <span className="relative">
                           {link.label}
                           <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-400 group-hover:w-full transition-all duration-300" />
@@ -1213,28 +1066,21 @@ const Portfolio = () => {
 
               {/* Contact Info */}
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white mb-4">Connect</h3>
+                <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                  <Mail className="w-5 h-5 text-red-400" />
+                  Connect
+                </h3>
                 <div className="space-y-3">
                   <a
                     href="mailto:yakahemanth3@gmail.com"
                     className="flex items-center space-x-2 text-gray-400 hover:text-red-400 transition-colors duration-300 group"
                   >
-                    <span className="text-lg transform group-hover:rotate-12 transition-transform duration-300">📧</span>
+                    <Mail className="w-4 h-4 transform group-hover:rotate-12 transition-transform duration-300" />
                     <span>yakahemanth3@gmail.com</span>
                   </a>
-                  {/* Newsletter Signup */}
-                  <div className="pt-4">
-                    <h4 className="text-sm font-medium text-white mb-2">Stay Updated</h4>
-                    <div className="relative group">
-                      <input
-                        type="email"
-                        placeholder="Enter your email"
-                        className="w-full px-4 py-2 bg-gray-800/50 border border-gray-700/50 rounded-lg text-gray-200 placeholder-gray-500 focus:outline-none focus:border-red-500/50 transition-colors duration-300"
-                      />
-                      <button className="absolute right-2 top-1/2 -translate-y-1/2 px-3 py-1 bg-red-500/20 text-red-400 rounded-md hover:bg-red-500/30 transition-colors duration-300">
-                        Subscribe
-                      </button>
-                    </div>
+                  <div className="pt-4 flex items-center gap-2 text-gray-400 text-sm">
+                    <Heart className="w-4 h-4 text-red-400 animate-pulse" />
+                    <span>Made with passion and precision</span>
                   </div>
                 </div>
               </div>
@@ -1248,10 +1094,10 @@ const Portfolio = () => {
                 </p>
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-gray-400">Built with</span>
-                  <div className="flex space-x-2">
-                    <span className="text-lg transform hover:rotate-12 transition-transform duration-300">⚛️</span>
-                    <span className="text-lg transform hover:rotate-12 transition-transform duration-300">🎨</span>
-                    <span className="text-lg transform hover:rotate-12 transition-transform duration-300">💻</span>
+                  <div className="flex items-center space-x-2">
+                    <Sparkles className="w-4 h-4 text-red-400 transform hover:rotate-12 transition-transform duration-300" />
+                    <Coffee className="w-4 h-4 text-red-400 transform hover:rotate-12 transition-transform duration-300" />
+                    <Heart className="w-4 h-4 text-red-400 transform hover:rotate-12 transition-transform duration-300" />
                   </div>
                 </div>
               </div>

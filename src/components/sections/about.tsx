@@ -4,10 +4,10 @@ import { ArrowUpRight, Code2, Palette, Zap } from "lucide-react";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 const stats = [
-  { value: "2+", label: "Years\nExperience" },
+  { value: "1.8+", label: "Years\nExperience" },
   { value: "10+", label: "Projects\nBuilt" },
   { value: "10+", label: "Happy\nClients" },
-  { value: "2+", label: "Tech\nMastered" },
+  { value: "1.8+", label: "Tech\nMastered" },
 ];
 
 const traits = [

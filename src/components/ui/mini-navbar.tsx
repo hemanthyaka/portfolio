@@ -121,7 +121,7 @@ export function Navbar() {
             rel="noopener noreferrer"
             onClick={(e) => {
               e.preventDefault();
-              trackEvent("resume_click", { source: "navbar_desktop" });
+              trackEvent("contact_click", { source: "navbar_desktop" });
               setTimeout(() => window.open(resumeFile, "_blank"), 150);
             }}
             className="px-4 py-1.5 text-xs whitespace-nowrap border border-white bg-white/5 text-white rounded-full hover:border-white/30 transition-colors duration-200"
@@ -187,7 +187,7 @@ export function Navbar() {
               rel="noopener noreferrer"
               onClick={(e) => {
                 e.preventDefault();
-                trackEvent("resume_click", { source: "navbar_mobile" });
+                trackEvent("contact_click", { source: "navbar_mobile" });
                 setTimeout(() => window.open(resumeFile, "_blank"), 150);
               }}
               className="w-full px-4 py-2 text-center text-sm whitespace-nowrap border border-white bg-white/5 text-white rounded-full transition-colors duration-200"

@@ -25,7 +25,7 @@ export function Hero({
   const [hasEnteredView, setHasEnteredView] = useState(false)
 
   const handleCtaClick = () => {
-    trackEvent("cta_click", { label: ctaLabel });
+    trackEvent("contact_click", { label: ctaLabel });
     if (!ctaHref) return
 
     if (ctaHref === "#") {

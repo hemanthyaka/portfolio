@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useRef, useState } from "react"
 import { LiquidButton } from "@/components/ui/liquid-glass-button"
+import { trackEvent } from "@/lib/analytics"
 import { Card } from "@/components/ui/card"
 import { Spotlight } from "@/components/ui/spotlight"
 import { SplineScene } from "@/components/ui/splite"
@@ -24,8 +25,7 @@ export function Hero({
   const [hasEnteredView, setHasEnteredView] = useState(false)
 
   const handleCtaClick = () => {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "cta_click", label: ctaLabel });
+    trackEvent("cta_click", { label: ctaLabel });
     if (!ctaHref) return
 
     if (ctaHref === "#") {

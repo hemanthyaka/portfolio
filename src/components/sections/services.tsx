@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Code2, Palette, Zap, Globe, Layers, Smartphone } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 const services = [
@@ -180,8 +181,7 @@ export function ServicesSection() {
               size="lg"
               className="text-white font-medium tracking-tight whitespace-nowrap"
               onClick={() => {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({ event: "contact_click", source: "services_section" });
+                trackEvent("contact_click", { source: "services_section" });
                 document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >

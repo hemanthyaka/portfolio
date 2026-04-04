@@ -118,6 +118,7 @@ export function Navbar() {
             href={resumeFile}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: "resume_click", source: "navbar_desktop" }); }}
             className="px-4 py-1.5 text-xs whitespace-nowrap border border-white bg-white/5 text-white rounded-full hover:border-white/30 transition-colors duration-200"
           >
             Resume
@@ -126,6 +127,7 @@ export function Navbar() {
             <div className="absolute inset-0 -m-2 rounded-full bg-white/10 blur-lg opacity-0 group-hover:opacity-60 transition-all duration-300 pointer-events-none" />
             <a
               href={`mailto:${CONTACT_EMAIL}`}
+              onClick={() => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: "contact_click", source: "navbar_hire_me" }); }}
               className="relative z-10 inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold whitespace-nowrap text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-white hover:to-gray-200 transition-all duration-200"
             >
               Hire Me
@@ -174,6 +176,7 @@ export function Navbar() {
               href={resumeFile}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: "resume_click", source: "navbar_mobile" }); }}
               className="w-full px-4 py-2 text-center text-sm whitespace-nowrap border border-white bg-white/5 text-white rounded-full transition-colors duration-200"
             >
               Resume
@@ -181,6 +184,7 @@ export function Navbar() {
             <a
               key="hire"
               href={`mailto:${CONTACT_EMAIL}`}
+              onClick={() => { window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: "contact_click", source: "navbar_hire_me_mobile" }); }}
               className="w-full px-4 py-2 text-center text-sm font-semibold whitespace-nowrap text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full transition-all duration-200"
             >
               Hire Me

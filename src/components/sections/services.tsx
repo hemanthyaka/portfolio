@@ -179,7 +179,11 @@ export function ServicesSection() {
             <LiquidButton
               size="lg"
               className="text-white font-medium tracking-tight whitespace-nowrap"
-              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ event: "contact_click", source: "services_section" });
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Start a project
             </LiquidButton>

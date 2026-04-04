@@ -113,7 +113,11 @@ export function AboutSection() {
               <LiquidButton
                 size="lg"
                 className="text-white font-medium tracking-tight"
-                onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  window.dataLayer = window.dataLayer || [];
+                  window.dataLayer.push({ event: "contact_click", source: "about_section" });
+                  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 <div className="flex gap-1 items-center">
                 Get in touch <ArrowUpRight className="w-4 h-4" />

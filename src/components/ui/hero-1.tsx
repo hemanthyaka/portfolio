@@ -24,6 +24,8 @@ export function Hero({
   const [hasEnteredView, setHasEnteredView] = useState(false)
 
   const handleCtaClick = () => {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: "cta_click", label: ctaLabel });
     if (!ctaHref) return
 
     if (ctaHref === "#") {

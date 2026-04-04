@@ -121,6 +121,10 @@ export function ContactSection() {
                   href={href}
                   target={href.startsWith("http") ? "_blank" : undefined}
                   rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  onClick={() => {
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({ event: "contact_click", source: label.toLowerCase() });
+                  }}
                   className="group relative flex items-center justify-between gap-4 rounded-2xl p-4 overflow-hidden transition-all duration-300 hover:scale-[1.01]"
                   style={gloss}
                 >

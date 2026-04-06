@@ -133,7 +133,7 @@ export function Navbar() {
             rel="noopener noreferrer"
             onClick={(e) => {
               e.preventDefault();
-              trackEvent("contact_click", { source: "navbar_desktop" });
+              trackEvent("resume", { source: "navbar_desktop" });
               setTimeout(() => window.open(resumeFile, "_blank"), 150);
             }}
             className="px-4 py-1.5 text-xs whitespace-nowrap border border-white bg-white/5 text-white rounded-full hover:border-white/30 transition-colors duration-200"
@@ -146,7 +146,7 @@ export function Navbar() {
               href={`mailto:${CONTACT_EMAIL}`}
               onClick={(e) => {
                 e.preventDefault();
-                trackEvent("contact_click", { source: "navbar_hire_me" });
+                trackEvent("hire_me", { source: "navbar_hire_me" });
                 setTimeout(() => { window.location.href = `mailto:${CONTACT_EMAIL}`; }, 150);
               }}
               className="relative z-10 inline-flex items-center justify-center px-4 py-1.5 text-xs font-semibold whitespace-nowrap text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full hover:from-white hover:to-gray-200 transition-all duration-200"
@@ -199,7 +199,7 @@ export function Navbar() {
               rel="noopener noreferrer"
               onClick={(e) => {
                 e.preventDefault();
-                trackEvent("contact_click", { source: "navbar_mobile" });
+                trackEvent("resume", { source: "navbar_mobile" });
                 setTimeout(() => window.open(resumeFile, "_blank"), 150);
               }}
               className="w-full px-4 py-2 text-center text-sm whitespace-nowrap border border-white bg-white/5 text-white rounded-full transition-colors duration-200"
@@ -211,7 +211,7 @@ export function Navbar() {
               href={`mailto:${CONTACT_EMAIL}`}
               onClick={(e) => {
                 e.preventDefault();
-                trackEvent("contact_click", { source: "navbar_hire_me_mobile" });
+                trackEvent("hire_me", { source: "navbar_hire_me_mobile" });
                 setTimeout(() => { window.location.href = `mailto:${CONTACT_EMAIL}`; }, 150);
               }}
               className="w-full px-4 py-2 text-center text-sm font-semibold whitespace-nowrap text-black bg-gradient-to-br from-gray-100 to-gray-300 rounded-full transition-all duration-200"

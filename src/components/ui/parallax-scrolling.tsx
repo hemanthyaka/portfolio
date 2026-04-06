@@ -1,5 +1,7 @@
 'use client';
-import { useEffect, useRef } from 'react';import gsap from 'gsap';
+
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { createLenis, destroyLenis, getLenis } from '@/lib/lenis';
 
@@ -23,6 +25,40 @@ const LAYERS = [
 
 export function ParallaxComponent() {
   const parallaxRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    const reduceMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+
+    const root = parallaxRef.current;
+    if (!root) return;
+
+    const letters = root.querySelectorAll<HTMLElement>('[data-title-letter]');
+    if (!letters.length) return;
+
+    if (reduceMotion) {
+      gsap.set(letters, { clearProps: 'all' });
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        letters,
+        { yPercent: 120, autoAlpha: 0 },
+        {
+          yPercent: 0,
+          autoAlpha: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          stagger: 0.08,
+          delay: 0.15,
+        }
+      );
+    }, root);
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -104,8 +140,22 @@ export function ParallaxComponent() {
               data-parallax-layer="3"
               className="absolute inset-0 flex items-center justify-center z-20"
             >
-              <h2 className="text-white font-black uppercase tracking-tighter text-[clamp(4rem,15vw,14rem)] min-[320px]:max-[374px]:text-[50px] leading-none select-none drop-shadow-2xl">
-                H e m a n t h
+              <h2
+                aria-label="Hemanth"
+                className="text-white font-black uppercase tracking-tighter text-[clamp(4rem,15vw,14rem)] min-[320px]:max-[374px]:text-[50px] leading-none select-none drop-shadow-2xl"
+              >
+                <span className="inline-flex gap-[0.18em]">
+                  {'Hemanth'.split('').map((letter, index) => (
+                    <span key={`${letter}-${index}`} className="inline-block overflow-hidden">
+                      <span
+                        data-title-letter
+                        className="inline-block will-change-transform"
+                      >
+                        {letter}
+                      </span>
+                    </span>
+                  ))}
+                </span>
               </h2>
             </div>
 

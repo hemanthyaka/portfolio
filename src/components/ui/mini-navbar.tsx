@@ -26,6 +26,28 @@ const scrollTo = (href: string) => {
   }
 };
 
+const Logo = () => {
+  return (
+    <a
+      href="#hero"
+      onClick={(e) => {
+        e.preventDefault();
+        scrollTo('#hero');
+      }}
+      aria-label="Go to top"
+      className="group relative inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/90 transition-colors duration-200 hover:border-white/30 hover:bg-white/10"
+    >
+      <span
+        aria-hidden="true"
+        className="select-none text-[12px] font-semibold tracking-[0.18em] drop-shadow"
+        style={{ fontFamily: '"GFS Didot","Playfair Display","EB Garamond",serif' }}
+      >
+        HY
+      </span>
+    </a>
+  );
+};
+
 const AnimatedNavLink = ({ href, children }: { href: string; children: React.ReactNode }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (href.startsWith('#')) {
@@ -94,17 +116,7 @@ export function Navbar() {
 
       {/* main row */}
       <div className="flex w-full items-center justify-between gap-6 sm:gap-10">
-        {/* logo dots */}
-        <div className="relative flex h-5 w-5 shrink-0 items-center justify-center">
-          {[
-            'top-0 left-1/2 -translate-x-1/2',
-            'left-0 top-1/2 -translate-y-1/2',
-            'right-0 top-1/2 -translate-y-1/2',
-            'bottom-0 left-1/2 -translate-x-1/2',
-          ].map((pos, i) => (
-            <span key={i} className={`absolute h-1.5 w-1.5 rounded-full bg-white ${pos}`} />
-          ))}
-        </div>
+        <Logo />
 
         {/* desktop links */}
         <div className="hidden sm:flex items-center gap-6">
